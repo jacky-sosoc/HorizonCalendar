@@ -80,6 +80,8 @@ public final class CalendarView: UIView {
   /// A closure (that is retained) that is invoked inside `scrollViewDidScroll(_:)`
   public var didScroll: ((_ visibleDayRange: DayRange, _ isUserDragging: Bool) -> Void)?
 
+    public var didFinishScrolling: (() -> Void)?
+
   /// A closure (that is retained) that is invoked inside `scrollViewDidEndDragging(_: willDecelerate:)`.
   @available(
     *,
@@ -695,6 +697,8 @@ public final class CalendarView: UIView {
       targetItem: scrollToItemContext.targetItem,
       scrollPosition: scrollToItemContext.scrollPosition,
       animated: false)
+
+      self.didFinishScrolling?()
   }
 
   @objc
